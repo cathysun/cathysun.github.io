@@ -3,9 +3,9 @@
 #   https://cathysun.github.io/app-ads.txt
 # (repo: cathysun/cathysun.github.io, file at repo root)
 #
-# TODO before publishing: replace every [BRACKETED] placeholder with the real
-# account ID from that network's dashboard. Lines with placeholders left in
-# will FAIL verification, so delete any network you have not signed up for.
+# Networks still commented out are ones with no account yet. Fill in the real
+# account ID and uncomment before that network can verify. A line left with a
+# [BRACKETED] placeholder in it will FAIL verification.
 
 OWNERDOMAIN=cathysun.github.io
 
@@ -15,7 +15,7 @@ OWNERDOMAIN=cathysun.github.io
 
 # Google AdMob
 # ID: AdMob dashboard > Settings > Account information > Publisher ID (pub-...)
-# TODO fill in and uncomment: google.com, [YOUR-ADMOB-PUB-ID], DIRECT, f08c47fec0942fa0
+google.com, pub-3314714513962148, DIRECT, f08c47fec0942fa0
 
 # Unity LevelPlay / ironSource
 # ID: ironSource platform > Account (avatar, bottom left) > API tab > Publisher ID
