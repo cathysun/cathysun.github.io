@@ -6,32 +6,62 @@
 <title>Pixel Stride Games</title>
 <meta name="description" content="Pixel Stride Games makes small, cozy mobile games. Home of PepQuest, a pixel pet adventure powered by your real-world steps.">
 <link rel="icon" href="art/icon.png">
-<!-- Pet art is exported from the PepQuest game assets. -->
+<!-- Moon, sparkle and meadow art are exported from the PepQuest game assets. -->
 <style>
   :root {
     --ink: #ffef9f;
     --panel: #1b1150;
     --edge: #7b5cff;
+    --ground: 95px;
   }
 
   body {
     margin: 0;
-    padding: 18px 12px 40px;
+    /* Leave room for the meadow pinned along the bottom. */
+    padding: 18px 12px calc(var(--ground) + 26px);
     background: #0c0826 url("art/stars.png") repeat;
     color: var(--ink);
     font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive;
     text-align: center;
-    /* Keep the pixel art crisp instead of letting browsers smooth it. */
     image-rendering: pixelated;
   }
 
+  /* Sparkles drift over the sky behind the panel. Fixed so they keep
+     twinkling as the page scrolls, and inert so they never eat a tap. */
+  .sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .sky img {
+    position: absolute;
+    opacity: 0;
+    animation: twinkle 4.5s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(.5) rotate(0deg); }
+    50%      { opacity: .95; transform: scale(1) rotate(90deg); }
+  }
+
   .shell {
+    position: relative;
+    z-index: 1;
     max-width: 640px;
     margin: 0 auto;
     background: var(--panel);
     border: 6px ridge var(--edge);
     padding: 18px 16px 24px;
     box-shadow: 0 0 24px #6a4bff88;
+    overflow: hidden;
+  }
+
+  /* The game's moon, tucked into the corner of the sky like in the meadow. */
+  .moon {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 86px;
+    filter: drop-shadow(0 0 14px #ffe9a3cc);
+    animation: glow 7s ease-in-out infinite;
+  }
+  @keyframes glow {
+    50% { filter: drop-shadow(0 0 24px #fff3c4ee); }
   }
 
   h1 {
@@ -131,11 +161,43 @@
   }
 
   footer { margin-top: 16px; font-size: .8em; color: #9c93d8; line-height: 1.7; }
+
+  /* The meadow the pets actually walk through, pinned along the bottom. */
+  .ground {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--ground);
+    background: url("art/flowers.png") repeat-x bottom center;
+    pointer-events: none;
+    /* Behind the panel, not over it. Pinned to the viewport it would
+       otherwise slide across the text as a tall page scrolls. */
+    z-index: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+    .sky img { opacity: .8; }
+  }
 </style>
 </head>
 <body>
 
+<div class="sky" aria-hidden="true">
+  <img src="art/sparkle.png" alt="" style="left:6%;  top:12%; width:26px; animation-delay:0s">
+  <img src="art/sparkle.png" alt="" style="left:14%; top:52%; width:18px; animation-delay:1.2s">
+  <img src="art/sparkle.png" alt="" style="left:9%;  top:78%; width:22px; animation-delay:2.4s">
+  <img src="art/sparkle.png" alt="" style="right:7%; top:26%; width:24px; animation-delay:.6s">
+  <img src="art/sparkle.png" alt="" style="right:13%;top:63%; width:18px; animation-delay:1.8s">
+  <img src="art/sparkle.png" alt="" style="right:5%; top:88%; width:28px; animation-delay:3s">
+  <img src="art/sparkle.png" alt="" style="left:44%; top:4%;  width:16px; animation-delay:2.1s">
+  <img src="art/sparkle.png" alt="" style="right:34%;top:94%; width:20px; animation-delay:.9s">
+</div>
+
 <div class="shell">
+
+  <img class="moon" src="art/moon.png" alt="" aria-hidden="true">
 
   <img src="art/icon.png" alt="Pixel Stride Games" width="88" height="88">
   <h1>Pixel Stride Games</h1>
@@ -186,6 +248,8 @@
   </footer>
 
 </div>
+
+<div class="ground" aria-hidden="true"></div>
 
 </body>
 </html>
